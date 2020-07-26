@@ -1,11 +1,13 @@
 let mysql = require('../mysql/mysql');
-var mongo = require('../mongo/mongo.js');
+//var mongo = require('../mongo/mongo.js');
+const MongoClient = require('mongodb').MongoClient;
 var mongoURL = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority';
 let async = require("async");
 let ObjectID = require("mongodb").ObjectID;
-let db_actual = null;
-mongo.connect(mongoURL, function (db) {
-db_actual = db;
+let db = null;
+const dbName = 'kayak';
+MongoClient.connect(mongoURL, function (err, db_actual) {
+    db = db_actual.db(dbName);
 })
 
 handle_request = ((data, callback) => {
@@ -31,7 +33,7 @@ handle_request = ((data, callback) => {
                         console.log(booking);
                         console.log("asdjklasdjlkasjflkasjflkj");
                         flightId = booking.flightId;
-                        db_actual.collection('flights').findOne({_id: new ObjectID(flightId)}, function (err, flightDetails) {
+                        db.collection('flights').findOne({_id: new ObjectID(flightId)}, function (err, flightDetails) {
                             console.log(flightDetails);
                             console.log(err);
                             if (flightDetails) {

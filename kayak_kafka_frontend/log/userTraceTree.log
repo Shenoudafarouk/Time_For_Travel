@@ -1,2 +1,5 @@
 {"message":{"tree":{"userId":"shenoudafarouk@yahoo.com","pages":["UserHome","UserProfile","UserProfile","UserHome"],"pageTime":[14582,57846,28690,40780]}},"level":"info"}
 {"message":{"tree":{"userId":"shenoudafarouk@yahoo.com","pages":["UserHome","HotelListing"],"pageTime":[41496,3207663]}},"level":"info"}
+{"message":{"tree":{"userId":"shenoudafarouk23@yahoo.com","pages":["UserHome","UserHome"],"pageTime":[14128713,465865]}},"level":"info"}
+{"message":{"tree":{"userId":"shenoudafarouk@yahoo.com","pages":["UserHome","FlightListing","UserPaymentPage","FlightListing","UserPaymentPage"],"pageTime":[173088,55371,240988,4950,170877]}},"level":"info"}
+{"message":{"tree":{"userId":"shenoudafarouk23@yahoo.com","pages":["UserHome","FlightListing","UserPaymentPage","UserHome","HotelListing"],"pageTime":[76764,15312,495390,233807,1803958]}},"level":"info"}

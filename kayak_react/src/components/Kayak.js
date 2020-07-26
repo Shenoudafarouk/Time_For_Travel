@@ -330,7 +330,7 @@ class Kayak extends Component {
                     <header className="color-1 hovered menu-3"id="pritya">
                         <div className="nav">
                             <nav className="navbar">
-                                <img src="/img/kayaklogo.PNG" id="prityaimage"/>
+                                <img src="/img/logo.PNG" id="prityaimage"/>
 
                                 <ul>
                                     <li className="type-1 active">

@@ -519,6 +519,7 @@ try {
 
     fetchflightsConsumer.on('message', function (message) {
         console.log('message received');
+        console.log("in fetch flight Shenouda");
         console.log(message);
         console.log(message.value);
         console.log(JSON.stringify(message.value));
@@ -799,6 +800,7 @@ try {
 
     getHotelDetails_Consumer.on('message', function (message) {
         console.log("4");
+        console.log("in Hotel details Shenouda");
         console.log(JSON.stringify(message.value));
         let data = JSON.parse(message.value);
 

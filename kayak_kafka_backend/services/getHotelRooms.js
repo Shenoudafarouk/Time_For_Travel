@@ -1,8 +1,10 @@
 
-var mongo = require('../mongo/mongo.js');
+//var mongo = require('../mongo/mongo.js');
+const MongoClient = require('mongodb').MongoClient;
 var mongoURL = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority';
+const dbName = 'kayak';
 function handle_request(msg, callback) {
-    var db;
+    //var db;
     var res = {};
     console.log("In handle request:" + JSON.stringify(msg));
 
@@ -15,8 +17,9 @@ function handle_request(msg, callback) {
       */
 
 
-    mongo.connect(mongoURL, function (db) {
+     MongoClient.connect(mongoURL, function (err , client) {
         console.log('Connected to mongo at: ' + mongoURL);
+        const db = client.db(dbName);
         // var coll = mongo.collection('login');
         console.log(msg.id);
         //coll.findOne({username: msg.username, password:msg.password}, function(err, user){
@@ -40,7 +43,7 @@ function handle_request(msg, callback) {
                 res.code = "401";
                 res.value = "Failed Login";
             }
-            db.close();
+            client.close();
             callback(null, res);
         });
     })
