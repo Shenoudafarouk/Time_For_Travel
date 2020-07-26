@@ -10,7 +10,7 @@
     "async": "latest",
     "bcrypt": "^4.0.1",
     "elasticsearch": "^14.0.0",
-    "kafka-node": "^2.2.3",
+    "kafka-node": "^5.0.0",
     "mongodb": "^2.2.33",
     "mongoose": "^5.9.6",
     "mysql": "^2.15.0"

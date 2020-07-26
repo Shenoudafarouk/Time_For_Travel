@@ -9,7 +9,7 @@ var fs = require('fs');
 var path = require('path');
 let MongoClient = require('mongodb').MongoClient;
 // let newDate = require('mongodb').MongoClient;
-var mongoURL = "mongodb://kayak:kayak@kayakcluster-shard-00-00-j61pv.mongodb.net:27017,kayakcluster-shard-00-01-j61pv.mongodb.net:27017,kayakcluster-shard-00-02-j61pv.mongodb.net:27017/kayak?ssl=true&replicaSet=KayakCluster-shard-0&authSource=admin";
+var mongoURL = "mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority";
 let db = null;
 MongoClient.connect(mongoURL, function (err, _db) {
     if (err) {

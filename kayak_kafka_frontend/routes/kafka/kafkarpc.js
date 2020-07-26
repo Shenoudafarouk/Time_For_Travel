@@ -85,6 +85,8 @@ KafkaRPC.prototype.setupResponseQueue = function (producer, topic_name, next) {
 
     console.log('1');
 
+    console.log("in kafkarpc response Shenouda");
+
     self = this;
 
     //subscribe to messages

@@ -1,11 +1,12 @@
 let mongoose = require('mongoose');
 let gracefulShutdown;
-let dbURI = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/messages?retryWrites=true&w=majority';
+let dbURI = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority';
+//mongodb://kayak:kayak@kayakcluster-shard-00-00-j61pv.mongodb.net:27017,kayakcluster-shard-00-01-j61pv.mongodb.net:27017,kayakcluster-shard-00-02-j61pv.mongodb.net:27017/kayak?ssl=true&replicaSet=KayakCluster-shard-0&authSource=admin
 if (process.env.NODE_ENV === 'production') {
     dbURI = process.env.MONGOLAB_URI;
 }
 
-mongoose.connect(dbURI, {useMongoClient: true, poolSize: 10});
+mongoose.connect(dbURI, {poolSize: 10});
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {

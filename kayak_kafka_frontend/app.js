@@ -14,9 +14,9 @@ let admin = require('./routes/admin');
 let listings = require('./routes/listings');
 let listingDetail = require('./routes/listingDetail');
 
-let mongoSessionURL = "mongodb://kayak:kayak@kayakcluster-shard-00-00-j61pv.mongodb.net:27017,kayakcluster-shard-00-01-j61pv.mongodb.net:27017,kayakcluster-shard-00-02-j61pv.mongodb.net:27017/kayak?ssl=true&replicaSet=KayakCluster-shard-0&authSource=admin";
+let mongoSessionURL = "mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority";
 let expressSessions = require("express-session");
-let mongoStore = require("connect-mongo/es5")(expressSessions);
+let mongoStore = require("connect-mongo")(expressSessions);
 
 let app = express();
 

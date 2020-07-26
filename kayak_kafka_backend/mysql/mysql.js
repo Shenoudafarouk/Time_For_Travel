@@ -8,9 +8,9 @@ function getConnection() {
         host: 'localhost',
         user: 'root',
         password: 'shenouda',
-        database: 'kayak',
+        database: 'kayak1',
         port: 3306,
-        debug: false
+        debug: false,
         // ssl: {
         //     ca   : fs.readFileSync('C:\\Users\\admin\\Desktop\\kayak-1\\server-ca.pem'), // should be enough for AWS
         //     key  : fs.readFileSync('C:\\Users\\admin\\Desktop\\kayak-1\\client-key.pem'), // required for google mysql cloud db
@@ -25,9 +25,9 @@ let pool = mysql.createPool({
     host: 'localhost',
     user: 'root',
     password: 'shenouda',
-    database: 'kayak',
+    database: 'kayak1',
     port: 3306,
-    debug: false
+    debug: false,
     // ssl: {
     //     ca: fs.readFileSync('C:\\Users\\admin\\Desktop\\kayak-1\\server-ca.pem'), // should be enough for AWS
     //     key: fs.readFileSync('C:\\Users\\admin\\Desktop\\kayak-1\\client-key.pem'), // required for google mysql cloud db
@@ -69,10 +69,11 @@ function fetchData(callback, sqlQuery) {
             console.log("ERROR: " + err.message);
         }
         else {	// return err or result
-            console.log("DB Results:" );
+            console.log("DB Results:");
             console.log(rows);
             callback(err, rows);
         }
+        
     });
     console.log("\nConnection closed..");
     connection.end();
