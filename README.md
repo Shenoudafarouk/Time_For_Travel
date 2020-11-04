@@ -163,8 +163,10 @@ Also we used hset instead of set which increases performance of redis by indexin
 
 ## Team Members
 
-*	Pritam Meher
-*	Rutvik Pensionwar
-*	Sunny Udhani
-*	Varun Shah
-*	Vishweshkumar Patel
+*	Shenouda Farouk
+*	Lamees mohamed
+*	Ahmed Hassanein
+*	Marina Saleh
+*	Eman Mohamed
+*	Maryan Fathy
+
