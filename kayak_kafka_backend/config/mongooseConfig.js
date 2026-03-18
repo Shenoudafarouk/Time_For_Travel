@@ -27,7 +27,7 @@ mongoose.connection.on('disconnected', function () {
 
 async function connectMongoose() {
     try {
-        await mongoose.connect(dbURI, { maxPoolSize: 10 });
+        await mongoose.connect(dbURI, { maxPoolSize: 10, minPoolSize: 0 });
     } catch (err) {
         console.error(`Mongoose initial connection error for ${redactedDbURI}: ${err && err.message ? err.message : err}`);
         if (err && err.stack) {
@@ -36,6 +36,7 @@ async function connectMongoose() {
         if (process.env.NODE_ENV === 'production') {
             process.exit(1);
         }
+        console.warn('Continuing without an active MongoDB connection; functionality may be degraded.');
     }
 }
 
