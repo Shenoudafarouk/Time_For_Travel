@@ -1,11 +1,8 @@
 let assert = require('assert');
 let request = require('request');
 let http = require("http");
-
-const baseUrl = process.env.API_BASE_URL || 'http://localhost:3001';
-const describeApi = process.env.RUN_API_TESTS === 'true' ? describe : describe.skip;
-const adminCookie = process.env.TEST_AUTH_COOKIE;
-const adminHeaders = adminCookie ? { Cookie: adminCookie } : undefined;
+const { baseUrl, describeApi, getAuthHeaders } = require('./helpers/apiTestConfig');
+const authHeaders = getAuthHeaders();
 
 describeApi('Testing URL and Login for Kayak', function() {
 
@@ -449,7 +446,7 @@ describeApi('Testing URL and Login for Kayak', function() {
 
 describeApi('Add Hotel', function () {
     it('should add hotel', function(done) {
-        if (!adminHeaders) {
+        if (!authHeaders) {
             this.skip();
             return;
         }
@@ -460,10 +457,10 @@ describeApi('Add Hotel', function () {
                 hotelAddress : 'san diego downtown',
                 city : 'sa diego',
                 state : 'california',
-                zipCode : '96545',
-                stars : '4'
-            },
-            headers: adminHeaders
+            zipCode : '96545',
+            stars : '4'
+        },
+            headers: authHeaders
         }, function(error, response, body) {
             // console.log(response.session.username);
             console.log(response.statusCode);
@@ -475,7 +472,7 @@ describeApi('Add Hotel', function () {
 
 describeApi('Add Car', function () {
     it('should add hotel', function(done) {
-        if (!adminHeaders) {
+        if (!authHeaders) {
             this.skip();
             return;
         }
@@ -492,7 +489,7 @@ describeApi('Add Car', function () {
                 zipCode: '95463',
                 price: '230',
             },
-            headers: adminHeaders
+            headers: authHeaders
         }, function(error, response, body) {
             // console.log(response.session.username);
             console.log(response.statusCode);
@@ -504,7 +501,7 @@ describeApi('Add Car', function () {
 
 describeApi('Add Flight', function () {
     it('should add Flight', function(done) {
-        if (!adminHeaders) {
+        if (!authHeaders) {
             this.skip();
             return;
         }
@@ -538,7 +535,7 @@ describeApi('Add Flight', function () {
                     }
                 ]
             },
-            headers: adminHeaders
+            headers: authHeaders
         }, function(error, response, body) {
             // console.log(response.session.username);
             console.log(response.statusCode);

@@ -1,8 +1,6 @@
 var assert = require('assert');
 var request = require('request');
-
-const baseUrl = process.env.API_BASE_URL || 'http://localhost:3001';
-const describeApi = process.env.RUN_API_TESTS === 'true' ? describe : describe.skip;
+const { baseUrl, describeApi, getAuthHeaders } = require('./helpers/apiTestConfig');
 
 describeApi('SignIn Test', function () {
 
@@ -193,16 +191,14 @@ describeApi('Negative SignUp Test', function () {
 describeApi('user profile Test', function () {
 
     it('should fetch details of a user for user profile', function (done) {
-        const cookie = process.env.TEST_AUTH_COOKIE;
-        if (!cookie) {
+        const authHeaders = getAuthHeaders();
+        if (!authHeaders) {
             this.skip();
             return;
         }
 
         request.post(`${baseUrl}/users/getuserprofile_user`, {
-            headers: {
-                Cookie: cookie
-            }
+            headers: authHeaders
         }, function (error, response, body) {
             console.log(response.statusCode);
             assert.equal(200, response.statusCode);

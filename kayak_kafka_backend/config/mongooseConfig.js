@@ -3,7 +3,7 @@ let gracefulShutdown;
 const { getMongoUri } = require('./mongoUrl');
 const dbURI = getMongoUri();
 
-mongoose.connect(dbURI, { poolSize: 10 });
+mongoose.connect(dbURI, { maxPoolSize: 10 });
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
