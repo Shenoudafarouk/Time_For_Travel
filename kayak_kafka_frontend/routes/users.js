@@ -9,7 +9,8 @@ var fs = require('fs');
 var path = require('path');
 let MongoClient = require('mongodb').MongoClient;
 // let newDate = require('mongodb').MongoClient;
-var mongoURL = "mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority";
+const { getMongoUri } = require('../config/mongoUrl');
+const mongoURL = getMongoUri();
 let db = null;
 MongoClient.connect(mongoURL, function (err, _db) {
     if (err) {

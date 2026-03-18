@@ -1,7 +1,8 @@
 let mysql = require('../mysql/mysql');
 //var mongo = require('../mongo/mongo.js');
 const MongoClient = require('mongodb').MongoClient;
-var mongoURL = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority';
+const { getMongoUri } = require('../config/mongoUrl');
+const mongoURL = getMongoUri();
 let async = require("async");
 let ObjectID = require("mongodb").ObjectID;
 let db = null;

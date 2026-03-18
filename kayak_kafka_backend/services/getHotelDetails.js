@@ -1,6 +1,7 @@
 //var mongo = require('../mongo/mongo.js');
 const MongoClient = require('mongodb').MongoClient;
-var mongoURL = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority';
+const { getMongoUri } = require('../config/mongoUrl');
+const mongoURL = getMongoUri();
 var ObjectID = require('mongodb').ObjectID;
 
 const dbName = 'kayak';

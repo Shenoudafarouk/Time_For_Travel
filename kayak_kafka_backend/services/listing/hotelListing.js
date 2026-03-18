@@ -1,5 +1,6 @@
 let mongo = require("../../mongo/mongo");
-let mongoURL = "mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority";
+const { getMongoUri } = require('../../config/mongoUrl');
+const mongoURL = getMongoUri();
 let mysql = require('../../mysql/mysql');
 let Hotel = require("../../Models/Hotel");
 let async = require("async");

@@ -2,14 +2,15 @@ let assert = require('assert');
 let request = require('request');
 let http = require("http");
 
-let headers = {
-    Cookie: "Webstorm-aeae2011=0b326edc-fe15-4ef3-9d79-c992d67934a5; _gu=c356e94f-8745-4be0-8189-268517b6d4a2; _gs=2.s(src=http://localhost:3001/); _gw=2.u[~0,~0,~0,~0,~0]v[~eznzi,~7,~0]a(); Idea-75f91138=154bfc31-7c80-4b7b-8719-062f374b61c4; JSESSIONID=C7F22674A14383C831C6EEE4C05890E2; connect.sid=s%3AL3lBgm0O6WtJCCXqA4vTBrCd7vbnR6u2.ksAOM2vuJh9Hha9bZsBVonx3Do7QXxaMAb7WO7hONtk"
-};
+const baseUrl = process.env.API_BASE_URL || 'http://localhost:3001';
+const describeApi = process.env.RUN_API_TESTS === 'true' ? describe : describe.skip;
+const adminCookie = process.env.TEST_AUTH_COOKIE;
+const adminHeaders = adminCookie ? { Cookie: adminCookie } : undefined;
 
-describe('Testing URL and Login for Kayak', function() {
+describeApi('Testing URL and Login for Kayak', function() {
 
     it('should return the login if the url is correct', function(done) {
-        http.get('http://localhost:3001/', function(res) {
+        http.get(`${baseUrl}/`, function(res) {
             console.log(res.statusCode);
             assert.equal(200, res.statusCode);
             done();
@@ -17,7 +18,7 @@ describe('Testing URL and Login for Kayak', function() {
     });
 
     it('should return error if the url is incorrect', function(done) {
-        http.get('http://localhost:3001/abc', function(res) {
+        http.get(`${baseUrl}/abc`, function(res) {
             console.log(res.statusCode);
             assert.equal(404, res.statusCode);
             done();
@@ -25,7 +26,7 @@ describe('Testing URL and Login for Kayak', function() {
     });
 
     it('should login as for given username and password sent', function(done) {
-        request.post('http://localhost:3001/users/login', {
+        request.post(`${baseUrl}/users/login`, {
             form : {
                 username : 'shenoudafarouk23@yahoo.com',
                 password : '123456789',
@@ -40,7 +41,7 @@ describe('Testing URL and Login for Kayak', function() {
     });
 
     it('should not login as invalid username and password sent', function(done) {
-        request.post('http://localhost:3001/users/login', {
+        request.post(`${baseUrl}/users/login`, {
             form : {
                 username : 'addscdsmin',
                 password : 'sdcds',
@@ -446,9 +447,13 @@ describe('Testing URL and Login for Kayak', function() {
 //     });
 // });
 
-describe('Add Hotel', function () {
+describeApi('Add Hotel', function () {
     it('should add hotel', function(done) {
-        request.post('http://localhost:3001/admin/addHotel', {
+        if (!adminHeaders) {
+            this.skip();
+            return;
+        }
+        request.post(`${baseUrl}/admin/addHotel`, {
             form : {
                 hostId : '8',
                 hotelName: 'sheraton grand',
@@ -458,7 +463,7 @@ describe('Add Hotel', function () {
                 zipCode : '96545',
                 stars : '4'
             },
-            headers
+            headers: adminHeaders
         }, function(error, response, body) {
             // console.log(response.session.username);
             console.log(response.statusCode);
@@ -468,9 +473,13 @@ describe('Add Hotel', function () {
     });
 });
 
-describe('Add Car', function () {
+describeApi('Add Car', function () {
     it('should add hotel', function(done) {
-        request.post('http://localhost:3001/admin/addCar', {
+        if (!adminHeaders) {
+            this.skip();
+            return;
+        }
+        request.post(`${baseUrl}/admin/addCar`, {
             form : {
                 hostId: '10',
                 carName: 'endevour',
@@ -483,7 +492,7 @@ describe('Add Car', function () {
                 zipCode: '95463',
                 price: '230',
             },
-            headers
+            headers: adminHeaders
         }, function(error, response, body) {
             // console.log(response.session.username);
             console.log(response.statusCode);
@@ -493,9 +502,13 @@ describe('Add Car', function () {
     });
 });
 
-describe('Add Flight', function () {
+describeApi('Add Flight', function () {
     it('should add Flight', function(done) {
-        request.post('http://localhost:3001/admin/addFlightData', {
+        if (!adminHeaders) {
+            this.skip();
+            return;
+        }
+        request.post(`${baseUrl}/admin/addFlightData`, {
             form : {
                 flightNo : 'AA223',
                 hostId : '9',
@@ -525,7 +538,7 @@ describe('Add Flight', function () {
                     }
                 ]
             },
-            headers
+            headers: adminHeaders
         }, function(error, response, body) {
             // console.log(response.session.username);
             console.log(response.statusCode);
@@ -535,4 +548,3 @@ describe('Add Flight', function () {
     });
 }
 );
-

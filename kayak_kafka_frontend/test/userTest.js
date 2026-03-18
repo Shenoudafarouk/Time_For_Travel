@@ -1,10 +1,13 @@
 var assert = require('assert');
 var request = require('request');
 
-describe('SignIn Test', function () {
+const baseUrl = process.env.API_BASE_URL || 'http://localhost:3001';
+const describeApi = process.env.RUN_API_TESTS === 'true' ? describe : describe.skip;
+
+describeApi('SignIn Test', function () {
 
     it('should signIn with correct username and password as parameters', function (done) {
-        request.post('http://localhost:3001/users/login', {
+        request.post(`${baseUrl}/users/login`, {
             form: {
                 username: 'Shenoudafarouk@yahoo.com',
                 password: '123456789',
@@ -18,10 +21,10 @@ describe('SignIn Test', function () {
     });
 });
 
-describe('Negative SignIn Test', function () {
+describeApi('Negative SignIn Test', function () {
 
     it('should not signIn with incorrect username or password as parameters', function (done) {
-        request.post('http://localhost:3001/users/login', {
+        request.post(`${baseUrl}/users/login`, {
             form: {
                 username: 'zayed.patel@sjsu.edu',
                 password: 'aajaaj1',
@@ -35,10 +38,10 @@ describe('Negative SignIn Test', function () {
     });
 });
 
-describe('SignUp Test', function () {
+describeApi('SignUp Test', function () {
 
     it('should signUp with username, password, firstname, lastname as parameters for new user', function (done) {
-        request.post('http://localhost:3001/users/signup', {
+        request.post(`${baseUrl}/users/signup`, {
             form: {
                 firstName: 'Ahmed',
                 lastName: 'hassanein',
@@ -55,10 +58,10 @@ describe('SignUp Test', function () {
     });
 });
 
-describe('Negative SignUp Test', function () {
+describeApi('Negative SignUp Test', function () {
 
     it('should not signUp user with same email exists', function (done) {
-        request.post('http://localhost:3001/users/signup', {
+        request.post(`${baseUrl}/users/signup`, {
             form: {
                 firstName: 'Ahmed',
                 lastName: 'hassanein',
@@ -187,20 +190,24 @@ describe('Negative SignUp Test', function () {
 //     });
 // });
 
-describe('user profile Test', function () {
+describeApi('user profile Test', function () {
 
     it('should fetch details of a user for user profile', function (done) {
-        request1.post('http://localhost:3001/users/getuserprofile_user', {
-                headers: {
-                    Cookie: "Webstorm-aeae2011=0b326edc-fe15-4ef3-9d79-c992d67934a5; _gu=c356e94f-8745-4be0-8189-268517b6d4a2; _gs=2.s(src=http://localhost:3001/); _gw=2.u[~0,~0,~0,~0,~0]v[~eznzi,~7,~0]a(); Idea-75f91138=154bfc31-7c80-4b7b-8719-062f374b61c4; JSESSIONID=C7F22674A14383C831C6EEE4C05890E2; connect.sid=s%3AAbyzWx_cWZQXBCD_K-p67AOXDlHfhJ4e.SPXHOBrdwMXJp3ZhkGU%2B1OVtuL1Z2TnPi%2B94xSWP7iM"
-                }
-            }, function (error, response, body) {
-                console.log(response.statusCode);
-                assert.equal(200, response.statusCode);
-                done();
+        const cookie = process.env.TEST_AUTH_COOKIE;
+        if (!cookie) {
+            this.skip();
+            return;
+        }
+
+        request.post(`${baseUrl}/users/getuserprofile_user`, {
+            headers: {
+                Cookie: cookie
             }
-        )
-        ;
+        }, function (error, response, body) {
+            console.log(response.statusCode);
+            assert.equal(200, response.statusCode);
+            done();
+        });
     });
 });
 

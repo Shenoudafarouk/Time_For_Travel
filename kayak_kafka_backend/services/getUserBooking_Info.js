@@ -1,6 +1,7 @@
 let mysql = require('../mysql/mysql');
-var mongo =require('../mongo/mongo.js');
-var mongoURL = 'mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority';
+var mongo = require('../mongo/mongo.js');
+const { getMongoUri } = require('../config/mongoUrl');
+const mongoURL = getMongoUri();
 
 
 handle_request = ((data, callback) => {
