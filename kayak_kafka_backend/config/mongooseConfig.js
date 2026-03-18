@@ -2,10 +2,23 @@ let mongoose = require('mongoose');
 let gracefulShutdown;
 const { getMongoUri } = require('./mongoUrl');
 const dbURI = getMongoUri();
-const redactedDbURI = dbURI ? dbURI.replace(/\/\/[^:]+:[^@]+@/, '//<credentials>@') : 'undefined';
+
+function redactMongoUri(uri) {
+    if (!uri) return 'undefined';
+    if (!uri.includes('@')) return uri;
+    const [protocol, ...rest] = uri.split('://');
+    const withoutProtocol = rest.join('://');
+    const afterAt = withoutProtocol.split('@').pop();
+    return `${protocol}://<credentials>@${afterAt}`;
+}
+
+const redactedDbURI = redactMongoUri(dbURI);
 
 mongoose.connect(dbURI, { maxPoolSize: 10 }).catch(function (err) {
-    console.log('Mongoose initial connection error for ' + redactedDbURI + ': ' + err);
+    console.error(`Mongoose initial connection error for ${redactedDbURI}: ${err && err.message ? err.message : err}`);
+    if (err && err.stack) {
+        console.error(err.stack);
+    }
 });
 
 // CONNECTION EVENTS
