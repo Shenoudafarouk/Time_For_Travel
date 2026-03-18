@@ -19,6 +19,9 @@ mongoose.connect(dbURI, { maxPoolSize: 10 }).catch(function (err) {
     if (err && err.stack) {
         console.error(err.stack);
     }
+    if (process.env.NODE_ENV === 'production') {
+        process.exit(1);
+    }
 });
 
 // CONNECTION EVENTS
