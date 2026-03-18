@@ -3,7 +3,9 @@ let gracefulShutdown;
 const { getMongoUri } = require('./mongoUrl');
 const dbURI = getMongoUri();
 
-mongoose.connect(dbURI, { maxPoolSize: 10 });
+mongoose.connect(dbURI, { maxPoolSize: 10 }).catch(function (err) {
+    console.log('Mongoose initial connection error: ' + err);
+});
 
 // CONNECTION EVENTS
 mongoose.connection.on('connected', function () {
