@@ -14,7 +14,8 @@ let admin = require('./routes/admin');
 let listings = require('./routes/listings');
 let listingDetail = require('./routes/listingDetail');
 
-let mongoSessionURL = "mongodb+srv://shenouda:P9NWCxGf1qomLuBA@cluster0-nstjf.mongodb.net/kayak?retryWrites=true&w=majority";
+const { getMongoUri } = require('./config/mongoUrl');
+const mongoSessionURL = getMongoUri();
 let expressSessions = require("express-session");
 let mongoStore = require("connect-mongo")(expressSessions);
 
